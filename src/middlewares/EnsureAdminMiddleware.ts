@@ -1,13 +1,23 @@
 import { Request, Response, NextFunction } from "express";
+import { getCustomRepository } from "typeorm";
+import { UsersRepositories } from "../repositories/UsersRepositories";
 
-function EnsureAdminMiddleware(
+async function EnsureAdminMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const admin = false;
+  const { user_id } = req;
 
-  if (admin) {
+  const UsersRepository = getCustomRepository(UsersRepositories)
+
+  const user = await UsersRepository.findOne({
+    id: user_id
+  })
+
+  const isAdmin = user?.admin
+
+  if (isAdmin) {
     return next();
   }
 
