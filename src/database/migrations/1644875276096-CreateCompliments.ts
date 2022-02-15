@@ -29,7 +29,7 @@ export class CreateCompliments1644875276096 implements MigrationInterface {
           },
           {
             name: "created_at",
-            type: "timestamps",
+            type: "timestamp",
             default: "now()",
           },
         ],
